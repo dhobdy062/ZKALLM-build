@@ -3,20 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infographic: The ZKA-Protected LLM API</title>
+    <title>Zero-Knowledge Architecture: From API to Insurance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F0F4F8;
-            color: #073B4C;
+        }
+        .section-divider {
+            background: linear-gradient(to right, #118AB2, #06D6A0);
+            height: 4px;
+            margin: 4rem 0;
+        }
+        .nav-item {
+            @apply px-4 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-200 transition-colors cursor-pointer;
+        }
+        .nav-item.active {
+            @apply bg-teal-600 text-white hover:bg-teal-700;
+        }
+        .pillar-btn {
+            @apply px-4 py-2 rounded-lg text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer;
+        }
+        .pillar-btn.active {
+            @apply bg-teal-100 text-teal-800 ring-2 ring-teal-300;
+        }
+        .content-section {
+            @apply p-6 bg-white rounded-lg shadow-lg;
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
             height: 350px;
@@ -56,161 +74,333 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-gray-50 text-gray-800">
 
-    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+    <!-- PART 1: ZKA API ARCHITECTURE -->
+    <div class="bg-[#F0F4F8] text-[#073B4C]">
+        <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+            <header class="text-center mb-12 pt-8">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-[#073B4C] mb-4">The Private Frontier: Building ZKA-Protected LLM APIs</h1>
+                <p class="text-xl text-[#118AB2] max-w-3xl mx-auto">A visual overview of the architecture, technologies, and trade-offs for securing large-scale AI ecosystems with Zero-Knowledge principles.</p>
+            </header>
 
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-[#073B4C] mb-4">The Private Frontier: Building ZKA-Protected LLM APIs</h1>
-            <p class="text-xl text-[#118AB2] max-w-3xl mx-auto">A visual overview of the architecture, technologies, and trade-offs for securing large-scale AI ecosystems with Zero-Knowledge principles.</p>
-        </header>
-
-        <<main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-1">
-                <h2 class="text-2xl font-bold text-[#073B4C] mb-4">The Privacy Dilemma</h2>
-                <p class="text-gray-600 mb-6">Enterprises demand powerful AI capabilities but cannot risk exposing sensitive data. This is the primary barrier to adoption.</p>
-                <div class="text-center">
-                    <div class="text-8xl font-extrabold text-[#FF6B6B]">75%</div>
-                    <p class="text-lg text-gray-700 mt-2">of enterprises cite AI data security and privacy as a critical barrier to integration.</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-1">
-                <h2 class="text-2xl font-bold text-[#073B4C] mb-4">Core API Functionality</h2>
-                <p class="text-gray-600 mb-6">A ZKA-API is not a typical chat endpoint. Its design prioritizes verification and secure processing over open-ended conversation.</p>
-                <div class="chart-container" style="max-width: 400px; height: 350px;">
-                    <canvas id="apiDonutChart"></canvas>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-1">
-                <h2 class="text-2xl font-bold text-[#073B4C] mb-4">The Verifier Service</h2>
-                <p class="text-gray-600 mb-6">The "digital bouncer" of the API. It validates mathematical proofs from the client, not the data itself.</p>
-                <div class="bg-gray-800 text-white rounded-lg p-6 my-4 font-mono text-left">
-                    <div class="text-gray-400">&gt; Verifier Receives Proof:</div>
-                    <div class="text-[#06D6A0] mt-2">ASSERT(</div>
-                    <div class="text-white ml-4">Predicate: 'User_Owns_Data(X)'</div>
-                    <div class="text-white ml-4">Public_Inputs: [Data_Commitment]</div>
-                    <div class="text-[#06D6A0]">) == TRUE</div>
-                </div>
-                <p class="text-gray-600">This confirms data ownership without the API ever seeing the raw data `X`.</p>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-3">
-                <h2 class="text-2xl font-bold text-[#073B4C] mb-4 text-center">Anatomy of a Zero-Knowledge API Call</h2>
-                <p class="text-gray-600 mb-8 text-center max-w-4xl mx-auto">This flow ensures that sensitive user data never leaves the client in an unencrypted or unproven state. The LLM backend computes on encrypted data or uses verified attestations.</p>
-                <div class="flex flex-col md:flex-row flex-wrap items-center justify-center gap-4 text-center mt-6">
-                    <div class="flow-card border-[#FF6B6B]">
-                        <h3 class="font-bold text-lg mb-2">1. Client</h3>
-                        <p class="text-sm">Encrypts Data (X)<br>Generates ZK-Proof (P)</p>
-                    </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-card">
-                        <h3 class="font-bold text-lg mb-2">2. API Gateway</h3>
-                        <p class="text-sm">Receives (Encrypted_X, P)<br>Routes to Verifier</p>
-                    </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-card">
-                        <h3 class="font-bold text-lg mb-2">3. Verifier Service</h3>
-                        <p class="text-sm">POST /verify(P)<br>Returns: [Valid / Invalid]</p>
-                    </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-card">
-                        <h3 class="font-bold text-lg mb-2">4. ZKA-LLM Backend</h3>
-                        <p class="text-sm">(If Valid) Processes Encrypted_X<br>(e.g., via FHE/TEE)</p>
-                    </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-card border-[#06D6A0]">
-                        <h3 class="font-bold text-lg mb-2">5. Client</h3>
-                        <p class="text-sm">Receives & Decrypts<br>Attested Response</p>
+            <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-1">
+                    <h2 class="text-2xl font-bold text-[#073B4C] mb-4">The Privacy Dilemma</h2>
+                    <p class="text-gray-600 mb-6">Enterprises demand powerful AI capabilities but cannot risk exposing sensitive data. This is the primary barrier to adoption.</p>
+                    <div class="text-center">
+                        <div class="text-8xl font-extrabold text-[#FF6B6B]">75%</div>
+                        <p class="text-lg text-gray-700 mt-2">of enterprises cite AI data security and privacy as a critical barrier to integration.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-2">
-                <h2 class="text-2xl font-bold text-[#073B4C] mb-4">The Privacy-Preserving Toolbox</h2>
-                <p class="text-gray-600 mb-6">Zero-Knowledge Architecture (ZKA) often combines several Privacy-Enhancing Technologies (PETs). The radar chart below illustrates the typical trade-offs.</p>
-                <div class="chart-container w-full max-w-2xl mx-auto">
-                    <canvas id="techRadarChart"></canvas>
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-1">
+                    <h2 class="text-2xl font-bold text-[#073B4C] mb-4">Core API Functionality</h2>
+                    <p class="text-gray-600 mb-6">A ZKA-API is not a typical chat endpoint. Its design prioritizes verification and secure processing over open-ended conversation.</p>
+                    <div class="chart-container" style="max-width: 400px; height: 350px;">
+                        <canvas id="apiDonutChart"></canvas>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-1">
-                <h2 class="text-2xl font-bold text-[#073B4C] mb-4">Toolbox Key</h2>
-                <p class="text-gray-600 mb-4">Each technology solves a different piece of the privacy puzzle.</p>
-                <ul class="space-y-4">
-                    <li>
-                        <strong class="text-[#FF6B6B]">Zero-Knowledge (ZK)</strong>
-                        <p class="text-sm text-gray-600">Proves a statement is true without revealing the data behind it.</p>
-                    </li>
-                    <li>
-                        <strong class="text-[#FFD166]">Secure Multi-Party Computation (SMPC)</strong>
-                        <p class="text-sm text-gray-600">Allows multiple parties to jointly compute a result without sharing their private inputs.</p>
-                    </li>
-                    <li>
-                        <strong class="text-[#06D6A0]">Fully Homomorphic Encryption (FHE)</strong>
-                        <p class="text-sm text-gray-600">Allows computations to be performed directly on encrypted data.</p>
-                    </li>
-                    <li>
-                        <strong class="text-[#118AB2]">Trusted Execution Environments (TEE)</strong>
-                        <p class="text-sm text-gray-600">A secure, isolated hardware-based environment to protect code and data during execution.</p>
-                    </li>
-                </ul>
-            </div>
 
-            <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-3">
-                <h2 class="text-2xl font-bold text-[#073B4C] mb-4">Privacy Tech Decision Matrix for Enterprise Use Cases</h2>
-                <p class="text-gray-600 mb-6">Choosing the right technology depends on the specific requirements for performance, cost, and privacy level. There is no one-size-fits-all solution.</p>
-                <div class="overflow-x-auto mt-4 rounded-lg shadow">
-                    <table class="min-w-full bg-white border border-gray-200">
-                        <thead class="bg-gray-100 border-b border-gray-300">
-                            <tr>
-                                <th class="text-left font-bold px-6 py-4">Enterprise Use Case</th>
-                                <th class="text-left font-bold px-6 py-4">Recommended Tech</th>
-                                <th class="text-left font-bold px-6 py-4">Primary Benefit</th>
-                                <th class="text-left font-bold px-6 py-4">Relative Cost / Complexity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium">Healthcare (Private Record Analysis)</td>
-                                <td class="px-6 py-4">FHE / TEE</td>
-                                <td class="px-6 py-4">Allows LLM to analyze data without decryption.</td>
-                                <td class="px-6 py-4"><span class="font-bold text-[#FF6B6B]">Very High</span> / <span class="font-bold text-[#FFD166]">Medium</span></td>
-                            </tr>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium">Finance (Cross-Bank Fraud Detection)</td>
-                                <td class="px-6 py-4">SMPC / ZK</td>
-                                <td class="px-6 py-4">Joint analysis without sharing transaction data; prove compliance.</td>
-                                <td class="px-6 py-4"><span class="font-bold text-[#FF6B6B]">High</span> / <span class="font-bold text-[#FF6B6B]">High</span></td>
-                            </tr>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium">Legal (Contract Ownership Proof)</td>
-                                <td class="px-6 py-4">ZK</td>
-                                <td class="px-6 py-4">Verifiably prove ownership or existence of a document.</td>
-                                <td class="px-6 py-4"><span class="font-bold text-[#FFD166]">Medium</span></td>
-                            </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium">General (Attested Computation)</td>
-                                <td class="px-6 py-4">TEE</td>
-                                <td class="px-6 py-4">Provides hardware-level attestation that the correct, secure code ran.</td>
-                                <td class="px-6 py-4"><span class="font-bold text-[#FFD166]">Medium</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-1">
+                    <h2 class="text-2xl font-bold text-[#073B4C] mb-4">The Verifier Service</h2>
+                    <p class="text-gray-600 mb-6">The "digital bouncer" of the API. It validates mathematical proofs from the client, not the data itself.</p>
+                    <div class="bg-gray-800 text-white rounded-lg p-6 my-4 font-mono text-left">
+                        <div class="text-gray-400">&gt; Verifier Receives Proof:</div>
+                        <div class="text-[#06D6A0] mt-2">ASSERT(</div>
+                        <div class="text-white ml-4">Predicate: 'User_Owns_Data(X)'</div>
+                        <div class="text-white ml-4">Public_Inputs: [Data_Commitment]</div>
+                        <div class="text-[#06D6A0]">) == TRUE</div>
+                    </div>
+                    <p class="text-gray-600">This confirms data ownership without the API ever seeing the raw data `X`.</p>
                 </div>
-            </div>
-        </main>
 
-        <footer class="text-center text-gray-500 mt-12">
-            <p>Infographic by Canvas Infographics. This is a conceptual visualization based on emerging architectural patterns.<br>
-            All visualizations rendered using Chart.js on HTML Canvas. No SVG or Mermaid.js elements were used. Don Hobdy,Jr Rettospxt2025</p>
-        </footer>
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-3">
+                    <h2 class="text-2xl font-bold text-[#073B4C] mb-4 text-center">Anatomy of a Zero-Knowledge API Call</h2>
+                    <p class="text-gray-600 mb-8 text-center max-w-4xl mx-auto">This flow ensures that sensitive user data never leaves the client in an unencrypted or unproven state. The LLM backend computes on encrypted data or uses verified attestations.</p>
+                    <div class="flex flex-col md:flex-row flex-wrap items-center justify-center gap-4 text-center mt-6">
+                        <div class="flow-card border-[#FF6B6B]">
+                            <h3 class="font-bold text-lg mb-2">1. Client</h3>
+                            <p class="text-sm">Encrypts Data (X)<br>Generates ZK-Proof (P)</p>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-card">
+                            <h3 class="font-bold text-lg mb-2">2. API Gateway</h3>
+                            <p class="text-sm">Receives (Encrypted_X, P)<br>Routes to Verifier</p>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-card">
+                            <h3 class="font-bold text-lg mb-2">3. Verifier Service</h3>
+                            <p class="text-sm">POST /verify(P)<br>Returns: [Valid / Invalid]</p>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-card">
+                            <h3 class="font-bold text-lg mb-2">4. ZKA-LLM Backend</h3>
+                            <p class="text-sm">(If Valid) Processes Encrypted_X<br>(e.g., via FHE/TEE)</p>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-card border-[#06D6A0]">
+                            <h3 class="font-bold text-lg mb-2">5. Client</h3>
+                            <p class="text-sm">Receives & Decrypts<br>Attested Response</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-2">
+                    <h2 class="text-2xl font-bold text-[#073B4C] mb-4">The Privacy-Preserving Toolbox</h2>
+                    <p class="text-gray-600 mb-6">Zero-Knowledge Architecture (ZKA) often combines several Privacy-Enhancing Technologies (PETs). The radar chart below illustrates the typical trade-offs.</p>
+                    <div class="chart-container w-full max-w-2xl mx-auto">
+                        <canvas id="techRadarChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-1">
+                    <h2 class="text-2xl font-bold text-[#073B4C] mb-4">Toolbox Key</h2>
+                    <p class="text-gray-600 mb-4">Each technology solves a different piece of the privacy puzzle.</p>
+                    <ul class="space-y-4">
+                        <li>
+                            <strong class="text-[#FF6B6B]">Zero-Knowledge (ZK)</strong>
+                            <p class="text-sm text-gray-600">Proves a statement is true without revealing the data behind it.</p>
+                        </li>
+                        <li>
+                            <strong class="text-[#FFD166]">Secure Multi-Party Computation (SMPC)</strong>
+                            <p class="text-sm text-gray-600">Allows multiple parties to jointly compute a result without sharing their private inputs.</p>
+                        </li>
+                        <li>
+                            <strong class="text-[#06D6A0]">Fully Homomorphic Encryption (FHE)</strong>
+                            <p class="text-sm text-gray-600">Allows computations to be performed directly on encrypted data.</p>
+                        </li>
+                        <li>
+                            <strong class="text-[#118AB2]">Trusted Execution Environments (TEE)</strong>
+                            <p class="text-sm text-gray-600">A secure, isolated hardware-based environment to protect code and data during execution.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 md:p-8 lg:col-span-3 mb-8">
+                    <h2 class="text-2xl font-bold text-[#073B4C] mb-4">Privacy Tech Decision Matrix for Enterprise Use Cases</h2>
+                    <p class="text-gray-600 mb-6">Choosing the right technology depends on the specific requirements for performance, cost, and privacy level. There is no one-size-fits-all solution.</p>
+                    <div class="overflow-x-auto mt-4 rounded-lg shadow">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead class="bg-gray-100 border-b border-gray-300">
+                                <tr>
+                                    <th class="text-left font-bold px-6 py-4">Enterprise Use Case</th>
+                                    <th class="text-left font-bold px-6 py-4">Recommended Tech</th>
+                                    <th class="text-left font-bold px-6 py-4">Primary Benefit</th>
+                                    <th class="text-left font-bold px-6 py-4">Relative Cost / Complexity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium">Healthcare (Private Record Analysis)</td>
+                                    <td class="px-6 py-4">FHE / TEE</td>
+                                    <td class="px-6 py-4">Allows LLM to analyze data without decryption.</td>
+                                    <td class="px-6 py-4"><span class="font-bold text-[#FF6B6B]">Very High</span> / <span class="font-bold text-[#FFD166]">Medium</span></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium">Finance (Cross-Bank Fraud Detection)</td>
+                                    <td class="px-6 py-4">SMPC / ZK</td>
+                                    <td class="px-6 py-4">Joint analysis without sharing transaction data; prove compliance.</td>
+                                    <td class="px-6 py-4"><span class="font-bold text-[#FF6B6B]">High</span> / <span class="font-bold text-[#FF6B6B]">High</span></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium">Legal (Contract Ownership Proof)</td>
+                                    <td class="px-6 py-4">ZK</td>
+                                    <td class="px-6 py-4">Verifiably prove ownership or existence of a document.</td>
+                                    <td class="px-6 py-4"><span class="font-bold text-[#FFD166]">Medium</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium">General (Attested Computation)</td>
+                                    <td class="px-6 py-4">TEE</td>
+                                    <td class="px-6 py-4">Provides hardware-level attestation that the correct, secure code ran.</td>
+                                    <td class="px-6 py-4"><span class="font-bold text-[#FFD166]">Medium</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- SECTION DIVIDER -->
+    <div class="section-divider"></div>
+
+    <!-- PART 2: INSURANCE APPLICATION -->
+    <div class="bg-gray-50">
+        <div class="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
+            <header class="text-center mb-10">
+                <h1 class="text-3xl md:text-5xl font-bold text-teal-700 mb-4">Zero-Knowledge Architecture in Insurance</h1>
+                <p class="text-lg md:text-xl text-gray-600">Transforming Insurance Compliance into Competitive Advantage</p>
+            </header>
+
+            <nav class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                <button id="nav-problem" class="nav-item" onclick="showSection('problem')">The Core Problem</button>
+                <button id="nav-solution" class="nav-item" onclick="showSection('solution')">The ZKA Solution</button>
+                <button id="nav-advantage" class="nav-item" onclick="showSection('advantage')">Strategic Advantage</button>
+                <button id="nav-analogy" class="nav-item" onclick="showSection('analogy')">The Paradigm Shift</button>
+            </nav>
+
+            <main>
+                <section id="section-problem" class="content-section hidden">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">The Critical Gap in Traditional Encryption</h2>
+                    <p class="text-gray-600 mb-6 text-center max-w-3xl mx-auto">
+                        This section illustrates the fundamental failure of traditional security. While data is protected during storage (At-Rest) and transmission (In-Transit), it is completely exposed during AI processing (In-Use). This is the vulnerability that Zero-Knowledge Architecture solves. The chart below visualizes this exposure gap.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="gapChart"></canvas>
+                    </div>
+                    <p class="text-gray-600 mt-6">
+                        Traditional encryption techniques—AES for data at-rest and TLS for data in-transit—protect policyholder information during storage and transmission. Yet they universally fail during the moment that matters most: when claims adjusters, underwriters, and customer service teams actually use that data for AI-powered decision-making. Every time an insurer processes a claim containing medical records, accident details, or financial information through a standard LLM, that sensitive data is exposed.
+                    </p>
+                </section>
+
+                <section id="section-solution" class="content-section hidden">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">The Three Pillars of Insurance-Grade AI Security</h2>
+                    <p class="text-gray-600 mb-6 text-center max-w-3xl mx-auto">
+                        ZKA moves the security boundary into the computational layer itself, establishing trust through mathematical guarantees, not disclosure. This solution is built on three core pillars. Click each pillar to explore how it provides comprehensive, verifiable security for AI in insurance.
+                    </p>
+
+                    <div class="flex justify-center gap-3 md:gap-6 mb-6">
+                        <button id="btn-protection" class="pillar-btn" onclick="showPillar('protection')">1. Data Protection</button>
+                        <button id="btn-accuracy" class="pillar-btn" onclick="showPillar('accuracy')">2. Accuracy & Auditability</button>
+                        <button id="btn-distributed" class="pillar-btn" onclick="showPillar('distributed')">3. Distributed State</button>
+                    </div>
+
+                    <div id="pillar-protection" class="pillar-content hidden p-4 bg-gray-50 rounded-lg">
+                        <h3 class="text-xl font-semibold text-teal-700 mb-3">1. Protecting Policyholder Data During Active Processing</h3>
+                        <p class="text-gray-700 mb-2">The most critical distinction for insurance operations is ZKA's ability to maintain confidentiality while data is actively being analyzed:</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li><strong class="text-gray-700">Secure Claims Processing:</strong> Zero-Knowledge LLMs (ZKLLMs) can analyze medical records, accident reports, and financial documentation without ever decoding or exposing the original sensitive information. The computation happens in a cryptographically sealed environment.</li>
+                            <li><strong class="text-gray-700">Exclusive Policyholder Control:</strong> Only the insurer (and by extension, the policyholder) holds the decryption keys. This means third-party AI vendors are mathematically prevented from accessing, learning from, or retaining sensitive claims data—a game-changer for vendor risk management.</li>
+                        </ul>
+                    </div>
+
+                    <div id="pillar-accuracy" class="pillar-content hidden p-4 bg-gray-50 rounded-lg">
+                        <h3 class="text-xl font-semibold text-teal-700 mb-3">2. Guaranteeing Accuracy and Auditability</h3>
+                        <p class="text-gray-700 mb-2">Insurance regulators and policyholders both demand proof that decisions are correct and explainable. ZKA delivers both through Zero-Knowledge Proofs (ZKPs):</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li><strong class="text-gray-700">Decision Integrity Verification:</strong> A ZKP mathematically proves that claim recommendations or underwriting decisions were correctly derived from the actual input data using the attested AI model—not a cheaper substitute.</li>
+                            <li><strong class="text-gray-700">Combating AI Hallucinations:</strong> ZKPs provide cryptographic verification that the model followed its correct internal logic, creating an auditable trail that regulators and courts can trust.</li>
+                        </ul>
+                    </div>
+                    
+                    <div id="pillar-distributed" class="pillar-content hidden p-4 bg-gray-50 rounded-lg">
+                        <h3 class="text-xl font-semibold text-teal-700 mb-3">3. Protecting Distributed Claims State</h3>
+                        <p class="text-gray-700">
+                            Modern AI architectures often distribute processing across multiple systems. ZKA extends protection to these distributed components, ensuring that cached information from sensitive inputs maintains integrity throughout multi-step claims workflows. This prevents data leakage or corruption as information moves between different parts of your processing pipeline.
+                        </p>
+                    </div>
+                </section>
+
+                <section id="section-advantage" class="content-section hidden">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">Compliance as a Competitive Advantage</h2>
+                    <p class="text-gray-600 mb-8 text-center max-w-3xl mx-auto">
+                        This is where the strategic transformation occurs. ZKA doesn't just help insurers meet regulatory requirements; it enables entirely new business models that were previously impossible under compliance constraints. Explore the four key advantages below.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-teal-50 p-6 rounded-lg shadow-sm border border-teal-100">
+                            <h3 class="text-xl font-semibold text-teal-700 mb-2">Meeting Regulatory Requirements by Design</h3>
+                            <p class="text-gray-700">ZKLLMs provide mathematical assurances that sensitive policyholder data is processed without being retained or misused. This intrinsic protection satisfies HIPAA, GLBA, and emerging AI regulations—not through policy promises, but through cryptographic proof.</p>
+                        </div>
+                        <div class="bg-teal-50 p-6 rounded-lg shadow-sm border border-teal-100">
+                            <h3 class="text-xl font-semibold text-teal-700 mb-2">Efficient, Privacy-Preserving Audit Trails</h3>
+                            <p class="text-gray-700">Instead of storing complete claims transcripts, ZKA allows insurers to log minimal, non-sensitive metadata (hashed identifiers, model versions) while maintaining full auditability. This dramatically reduces data breach exposure while satisfying regulatory oversight.</p>
+                        </div>
+                        <div class="bg-teal-50 p-6 rounded-lg shadow-sm border border-teal-100">
+                            <h3 class="text-xl font-semibold text-teal-700 mb-2">Unlocking Collaborative Intelligence</h3>
+                            <p class="text-gray-700">ZKA enables partnerships. Healthcare providers and reinsurers can contribute to shared AI models that improve fraud detection—without any party needing to expose their proprietary data. All benefit from collective intelligence without sacrificing privacy.</p>
+                        </div>
+                        <div class="bg-teal-50 p-6 rounded-lg shadow-sm border border-teal-100">
+                            <h3 class="text-xl font-semibold text-teal-700 mb-2">Market Differentiation Through Trust</h3>
+                            <p class="text-gray-700">Insurers deploying ZKA can offer mathematically provable privacy guarantees. This isn't marketing spin—it's cryptographic certainty that transforms privacy protection from a compliance checkbox into a powerful customer acquisition advantage.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section-analogy" class="content-section hidden">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">The Paradigm Shift: An Analogy</h2>
+                    <p class="text-gray-600 mb-8 text-center max-w-3xl mx-auto">
+                        To understand the fundamental change ZKA represents, compare it to traditional security models. One is like a locked cabinet, vulnerable once opened. The other is a transparent calculator that performs calculations while keeping the numbers themselves hidden.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="border-2 border-red-300 bg-red-50 p-6 rounded-lg shadow-md text-center">
+                            <span class="text-6xl mb-4 block" role="img" aria-label="Filing Cabinet">🗄️</span>
+                            <h3 class="text-2xl font-semibold text-red-700 mb-3">Traditional Encryption: The Locked Cabinet</h3>
+                            <p class="text-gray-700">
+                                Traditional encryption is like storing policyholder files in a locked cabinet. They are protected until someone needs to use them. The moment the cabinet is opened and the file is taken out (i.e., data is processed), it is completely vulnerable and exposed to everyone in the room.
+                            </p>
+                        </div>
+                        <div class="border-2 border-green-300 bg-green-50 p-6 rounded-lg shadow-md text-center">
+                            <span class="text-6xl mb-4 block" role="img" aria-label="Calculator">🧮</span>
+                            <h3 class="text-2xl font-semibold text-green-700 mb-3">Zero-Knowledge: The Transparent Calculator</h3>
+                            <p class="text-gray-700">
+                                ZKA is a transparent calculator. You can see the buttons being pressed and verify the math is correct (e.g., 2+2=4). However, the actual sensitive numbers being entered are kept completely hidden, even from the calculator itself. It verifies the computation without ever revealing the data.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="text-center text-gray-500 mt-12 pb-8">
+                <p>Zero-Knowledge Architecture: From API to Insurance Application<br>
+                Visualizations rendered using Chart.js. © 2025 Don Hobdy, Jr. - Retrospxt</p>
+            </footer>
+        </div>
     </div>
 
     <script>
+        // Insurance section navigation
+        const sections = ['problem', 'solution', 'advantage', 'analogy'];
+        const navItems = {
+            'problem': document.getElementById('nav-problem'),
+            'solution': document.getElementById('nav-solution'),
+            'advantage': document.getElementById('nav-advantage'),
+            'analogy': document.getElementById('nav-analogy')
+        };
+        const contentSections = {
+            'problem': document.getElementById('section-problem'),
+            'solution': document.getElementById('section-solution'),
+            'advantage': document.getElementById('section-advantage'),
+            'analogy': document.getElementById('section-analogy')
+        };
+
+        const pillars = ['protection', 'accuracy', 'distributed'];
+        const pillarBtns = {
+            'protection': document.getElementById('btn-protection'),
+            'accuracy': document.getElementById('btn-accuracy'),
+            'distributed': document.getElementById('btn-distributed')
+        };
+        const pillarContents = {
+            'protection': document.getElementById('pillar-protection'),
+            'accuracy': document.getElementById('pillar-accuracy'),
+            'distributed': document.getElementById('pillar-distributed')
+        };
+
+        function showSection(sectionId) {
+            sections.forEach(id => {
+                contentSections[id].classList.add('hidden');
+                navItems[id].classList.remove('active');
+            });
+            contentSections[sectionId].classList.remove('hidden');
+            navItems[sectionId].classList.add('active');
+        }
+
+        function showPillar(pillarId) {
+            pillars.forEach(id => {
+                pillarContents[id].classList.add('hidden');
+                pillarBtns[id].classList.remove('active');
+            });
+            pillarContents[pillarId].classList.remove('hidden');
+            pillarBtns[pillarId].classList.add('active');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize insurance section
+            showSection('problem');
+            showPillar('protection');
+
+            // API Section Charts
             const color1 = '#FF6B6B';
             const color2 = '#FFD166';
             const color3 = '#06D6A0';
@@ -249,6 +439,7 @@
                 return lines;
             }
 
+            // Donut Chart
             if (document.getElementById('apiDonutChart')) {
                 const ctxDonut = document.getElementById('apiDonutChart').getContext('2d');
                 const donutLabels = ['POST /verify (Proof)', 'POST /prompt (Encrypted)', 'GET /status (Attestation)', 'POST /register (Key)'];
@@ -288,6 +479,7 @@
                 });
             }
 
+            // Radar Chart
             if (document.getElementById('techRadarChart')) {
                 const ctxRadar = document.getElementById('techRadarChart').getContext('2d');
                 const radarLabels = ['Privacy Guarantee', 'Performance Impact', 'Implementation Cost', 'Tech Maturity'];
@@ -375,7 +567,75 @@
                     }
                 });
             }
+
+            // Insurance Gap Chart
+            const ctx = document.getElementById('gapChart').getContext('2d');
+            const gapChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Data At-Rest', 'Data In-Transit', 'Data In-Use (Processing)'],
+                    datasets: [
+                        {
+                            label: 'Traditional Encryption Risk',
+                            data: [1, 1, 10],
+                            backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                            borderColor: 'rgba(239, 68, 68, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Zero-Knowledge Architecture Risk',
+                            data: [1, 1, 1],
+                            backgroundColor: 'rgba(34, 197, 94, 0.7)',
+                            borderColor: 'rgba(34, 197, 94, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Relative Data Exposure Risk'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    if (value === 10) return 'High';
+                                    if (value === 1) return 'Low (Secured)';
+                                    return '';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    let value = context.parsed.y;
+                                    if (value === 10) {
+                                        label += 'High Risk (Exposed)';
+                                    } else if (value === 1) {
+                                        label += 'Low Risk (Encrypted/Protected)';
+                                    }
+                                    return label;
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
         });
     </script>
+
 </body>
 </html>
